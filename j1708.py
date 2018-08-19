@@ -18,8 +18,15 @@ def to_dec(string):
     return array
 
 def checksum(array):
+    '''
     checksum = 0
     for x in range(0,(len(array)-1)):
         checksum = checksum+array[x]
     checksum = checksum & 255
+    '''
+    checksum = 0
+    for x in range(0, (len(array)-1)):
+        checksum += array[x]
+    checksum &= 255
+    checksum = 256 - checksum
     return checksum

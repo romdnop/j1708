@@ -30,9 +30,13 @@ def handle_data(data):
 
 
 com = serial.Serial()
-com.port = "COM21"
-com.baudrate = 115200
-com.timeout= (1/115200)*3 + 0.005
+com.port = "COM8"
+com.baudrate = 9600
+com.timeout= (1/9600)*22
+com.STOPBITS = 1
+com.PARITIES = 0
+com.set_buffer_size = 21
+com.interCharTimeout = 0.01
 
 if ~com.is_open:
     com.open()
@@ -49,7 +53,7 @@ log_file = open(abs_file_path,'w')
 while True:
     #print("test")
     if com.inWaiting():
-        time.sleep(0.001)
+        time.sleep(0.005)
         reading = com.readline()
         handle_data(reading)
 
