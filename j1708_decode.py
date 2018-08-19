@@ -1,23 +1,6 @@
-import serial, time, re, json, csv
+import serial, time, re, csv
+from j1708 import Message, checksum
 
-class Message:
-    def __init__(self, mid,content,checksum,pos,length):
-        self.mid= mid
-        self.content = content
-        self.length = length
-        self.pos = pos
-        self.checksum = checksum
-    def toJSON(self):
-        return json.dumps(
-                        self,
-                        default = lambda o: o.__dict__,
-                        sort_keys=True,
-                        indent=4
-                        )
-    def __eq__(self,other):
-        return self.content == other.content
-    def __hash__(self):
-        return hash(('content',str(self.content)))
 
 def to_dec(string):
     array = []
@@ -25,14 +8,14 @@ def to_dec(string):
     array = [string[i:i+n] for i in range(0,len(string),n)]
     array = [int(x, 16) for x in array]
     return array
-
+'''
 def checksum(array):
     checksum = 0
     for x in range(0,(len(array)-1)):
         checksum = checksum+array[x]
     checksum = checksum & 255
     return checksum
-
+'''
 def slice_on_packages(array):
     messages = []
     pStart = 0
@@ -56,7 +39,28 @@ def slice_on_packages(array):
         pEnd = pStart + 21
     return messages
 
+def slice_message(messages, start, end):
+    return messages[start:end]
 
+def check_message_exist(message):
+    maxPossibleLen = 21
+    while maxPossibleLen > 0:
+        if checksum(message) == message[-1]
+        maxPossibleLen -= 1
+        return True
+    return False
+    
+
+def slice_on_packages2(array):
+    messages = []
+    pStart = 0
+    pEnd = 21
+    while pStart < (len(array)-3):
+        mess = slice_message(array,pStart, pEnd)
+        if check_message_exist(mess):
+            
+        
+        
 
 def compaction(messages):
     #Searching for message wich repeats more then 5 times.
@@ -122,7 +126,7 @@ def save_messages_to_csv(messages):
             )
     messages_dump.close()
 
-input_dump = open("dump_23_07.txt","r")
+input_dump = open("dump_10_08.txt","r")
 dump_array = input_dump.readlines()
 dump_array = str(dump_array)
 dump_array = re.sub('[^A-Za-z0-9]+', '', dump_array)

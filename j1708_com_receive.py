@@ -27,10 +27,23 @@ def handle_data(data):
     #data = ord(data)
     log_file.write(log_string+'\n')
     print(log_string)
+    parse_for_fuel(data)
+
+
+def parse_for_fuel(array):
+    if array[0] == 128:
+        for i in range(0,(len(array)-1)):
+            if (array[i] == 133): #avarage fuel rate L/s
+                step = 16.428E-6
+                dataH = array[i+1]
+                dataL = array[i+2]
+                data = (dataH<<8)|dataL
+                print("Current fuel rate: ="+str(data)+"\n")
+                break;       
 
 
 com = serial.Serial()
-com.port = "COM8"
+com.port = "COM21"
 com.baudrate = 9600
 com.timeout= (1/9600)*22
 com.STOPBITS = 1
@@ -53,7 +66,7 @@ log_file = open(abs_file_path,'w')
 while True:
     #print("test")
     if com.inWaiting():
-        time.sleep(0.005)
+        time.sleep(0.001) #0.005
         reading = com.readline()
         handle_data(reading)
 
