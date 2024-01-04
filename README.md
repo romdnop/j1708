@@ -65,7 +65,7 @@ The scripts have a number of dependencies that can be installed using
 
 To use the scripts the following packages are required:
 
-* serial
+* pyserial
 * time
 * csv
 * sys
