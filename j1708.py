@@ -5,10 +5,18 @@ class Message:
         self.length = length
         self.pos = pos
         self.checksum = checksum
+    def checksum(self,array): #requires refactoring!
+        checksum = 0
+        for x in range(0, (len(array)-1)):
+            checksum += array[x]
+        checksum &= 255
+        checksum = 256 - checksum
+        return checksum
     def __eq__(self,other):
         return self.content == other.content
     def __hash__(self):
         return hash(('content',str(self.content)))
+    
 
 def to_dec(string):
     array = []
