@@ -75,7 +75,26 @@ To use the scripts the following packages are required:
 To install the above-mentioned packages use the following commands:
 
     python -m pip install --upgrade pip
-    python -m pip install serial, time, csv, sys, signal, os
+    python -m pip install pyserial
+
+OR
+
+Use use virtual environment instead
+
+```
+python -m venv venv #must be called only once
+ .\venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+
+```
+AND
+```
+pip install pyserial
+```
+OR
+```
+pip install -r requirements.txt
+```
 
 
 ## Run
@@ -86,5 +105,13 @@ Running of the script from CLI by:
 
     python j1708_com_receive.py
 
+NOTE:
+
+Don't forget to activate the environment prior to execution by:
+
+```
+ .\venv\Scripts\Activate.ps1
+ python j1708_com_receive.py
+```
 will result in a log file to be created in _logs/_ folder.
 
