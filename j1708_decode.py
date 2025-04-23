@@ -1,5 +1,5 @@
 import serial, time, re, csv
-from j1708 import Message, checksum
+from j1708.Message import Message, checksum
 
 
 def to_dec(string):
@@ -46,8 +46,8 @@ def check_message_exist(message):
     maxPossibleLen = 21
     while maxPossibleLen > 0:
         if checksum(message) == message[-1]
-        maxPossibleLen -= 1
-        return True
+            maxPossibleLen -= 1
+            return True
     return False
     
 

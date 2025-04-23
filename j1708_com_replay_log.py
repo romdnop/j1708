@@ -1,7 +1,7 @@
 import serial, time, signal, sys, csv, re
-from j1708 import Message
-from j1708 import to_dec
-from settings import *
+from j1708.Message import Message
+from j1708.Message import to_dec
+from j1708.settings import *
 
 def signal_handler(signal, handler):
     if 'com' in globals():
